@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head lang="en">
 
     <title>Spring Framework Guru</title>
@@ -18,15 +18,20 @@
                 <th>Description</th>
                 <th>Price</th>
                 <th>View</th>
-                <th>Edit</th>
+                <th sec:authorize="hasRole('ADMIN')">Edit</th>
             </tr>
+
             <tr th:each="product : ${products}">
-                <td th:text="${product.id}"><a href="/product/${product.id}">Id</a></td>
-                <td th:text="${product.productId}">Product Id</td>
-                <td th:text="${product.description}">descirption</td>
-                <td th:text="${product.price}">price</td>
-                <td><a th:href="${ '/product/' + product.id}">View</a></td>
-                <td><a th:href="${'/product/edit/' + product.id}">Edit</a></td>
+                <td th:text="${product.id}"></td>
+                <td th:text="${product.productId}"></td>
+                <td th:text="${product.description}"></td>
+                <td th:text="${product.price}"></td>
+                <td>
+                    <a th:href="${'/product/' + product.id}">View</a>
+                </td>
+                <td sec:authorize="hasRole('ADMIN')">
+                    <a th:href="${'/product/edit/' + product.id}">Edit</a>
+                </td>
             </tr>
         </table>
 
