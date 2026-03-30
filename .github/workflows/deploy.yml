@@ -18,6 +18,9 @@ jobs:
       with:
         distribution: 'temurin' # See 'Supported distributions' for available options
         java-version: '17'
+        
+    - name: Give permission to mvnw
+      run: chmod +x mvnw
     
     - name: Build jar
       run: ./mvnw clean package
